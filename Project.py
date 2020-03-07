@@ -127,8 +127,6 @@ class Window3(QMainWindow):
         self.wndw2 = Window2()
         self.wndw2.show()
         
-        print("HI")
-        
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
