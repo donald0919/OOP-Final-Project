@@ -86,7 +86,7 @@ class Window3(QMainWindow):
         
         self.text = QLabel(QPushButton("HI",self))
         
-        
+        print("HI")
         
 
 if __name__ == '__main__':
