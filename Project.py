@@ -17,6 +17,21 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle(self.title)
         
+
+        def background():
+            self.label = QLabel("Gadget Zone", self)
+            self.label.move(280,175)
+            self.setWindowTitle(self.title)
+            self.setGeometry(self.x, self.y, self.width, self.height)
+            #background
+            oImage = QImage("Nike.png")
+            sImage = oImage.scaled(QSize(500,700))
+            palette = QPalette()
+            palette.setBrush(QPalette.Window, QBrush(sImage))
+            self.setPalette(palette)
+        
+            self.show()
+    
         def buttons():
             self.button = QPushButton('Continue',self)
             self.button.setToolTip("Continue to Main Window")
@@ -39,9 +54,9 @@ class MainWindow(QMainWindow):
             self.label1 = QLabel("Technological Institute of the Philippines",self)
             self.label1.resize(400,20)
             self.label1.move(240,470)
-        labels()
-
-        self.Window()
+            labels()
+        
+            self.Window()
 
     def Cancel(self):
         Confirmation = QMessageBox.warning(self,"Warning","Quit Application?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
@@ -86,10 +101,10 @@ class Window3(QMainWindow):
         
         self.text = QLabel(QPushButton("HI",self))
         
-        print("HI")
+        
         
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     Main = MainWindow()
-    sys.exit(app.exec_())  
+    sys.exit(app.exec_())
