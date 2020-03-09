@@ -1,7 +1,5 @@
-# OOP-Final-Project
-# ===Ryan===
-
 import sys
+from sqlitedict import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -14,47 +12,100 @@ class MainWindow(QMainWindow):
         self.y = 100
         self.width = 700
         self.height = 500
-
+    
+    def initUi(self):
         self.setWindowTitle(self.title)
+        self.setGeometry(self.x,self.y,self.width,self.height)
+        self.setWindowIcon(QIcon('pythonico.ico'))
 
+        self.textbox1 = QLineEdit(self)
+        self.textboxlbl1 = QLabel("What's your name pilot ?: ", self)
+        self.textboxlbl1.move(190,79)
+        self.textbox1.setText(" Enter your name before launching to space !")
+        self.textbox1.move(250,70)
+        self.textbox1.resize(280,30)
+
+        self.textbox2 = QLineEdit(self)
+        self.textboxlbl2 = QLabel("What grade level are you in ?:", self)
+        self.textboxlbl2.move(190,119)
+        self.textbox2.setText("Enter your grade level (Ex: Grade 1)")
+        self.textbox2.move(250,110)
+        self.textbox2.resize(280,30)
+
+        self.button = QPushButton('Submit', self)
+        self.button.setToolTip("Submit your information to NASA !")
+        self.button.move(149,310)
+        self.button.clicked.connect(self.data) 
+        self.button2 = QPushButton('Clear',self)
+        self.button2.setToolTip("Clearing all information ")
+        self.button2.move(305,310)
+        self.button2.clicked.connect(self.clear)
         
-        def buttons():
-            self.button = QPushButton('Continue',self)
-            self.button.setStyleSheet("font: Bold")
-            self.button.setToolTip("Continue to Main Window")
-            self.button.clicked.connect(self.Window_2)
-            self.button.resize(100,50)
-            self.button.move(200,400)
+        self.button = QPushButton('Continue',self)
+        self.button.setStyleSheet("font: Bold")
+        self.button.setToolTip("Continue to Main Window")
+        self.button.clicked.connect(self.Window_2)
+        self.button.resize(100,50)
+        self.button.move(200,400)
 
-            self.button1 = QPushButton('Quit',self)
-            self.button1.setStyleSheet("font: Bold")
-            self.button1.setToolTip("Exit Application")
-            self.button1.clicked.connect(self.Cancel)
-            self.button1.resize(100,50)
-            self.button1.move(350,400)
-        buttons()
+        self.button1 = QPushButton('Quit',self)
+        self.button1.setStyleSheet("font: Bold")
+        self.button1.setToolTip("Exit Application")
+        self.button1.clicked.connect(self.Cancel)
+        self.button1.resize(100,50)
+        self.button1.move(350,400)
+        
+        self.label = QLabel("Programmed by: Donald G. Jardiolin and John Ryan L. Montecalvo",self)
+        self.label.resize(490,20)
+        self.label.move(180,450)
 
-        def labels():
-            self.label = QLabel("Programmed by: Donald G. Jardiolin and John Ryan L. Montecalvo",self)
-            self.label.resize(490,20)
-            self.label.move(180,450)
+        self.label1 = QLabel("Technological Institute of the Philippines",self)
+        self.label1.resize(400,20)
+        self.label1.move(240,470)
 
-            self.label1 = QLabel("Technological Institute of the Philippines",self)
-            self.label1.resize(400,20)
-            self.label1.move(240,470)
-        labels()
-
-        self.Window()
+        self.show()
 
     @pyqtSlot()
 
-    def Cancel(self):
-        Confirmation = QMessageBox.warning(self,"Warning","Quit Application?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-        if Confirmation == QMessageBox.Yes:
-            MainWindow.close()
-        else:
-            pass
+    def submitBox(self):
+        buttonReply = QMessageBox.question(self,"Submitting Data", "Do you want to submit the information partner ? ", 
+                                                                    QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+        if buttonReply == QMessageBox.Yes:
+            QMessageBox.warning(self,"Evalutaion", "Registration Complete", QMessageBox.Ok,QMessageBox.Ok)
 
+        else:
+           pass
+
+    def clear(self):
+        self.textbox1.setText("")
+        self.textbox2.setText("")
+
+    def data(self):
+        name = self.textbox1.text()
+        grdlevel = self.textbox2.text()
+
+        self.submitdata(name, grdlevel)
+
+    def submitdata(self,name,grdlevel):
+        submitting = QMessageBox.question(self, "Submitting Data", "Confirm?", QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+
+        if submitting == QMessageBox.Yes and name != "" and grdlevel != "":
+            dataB = SqliteDict("Ddb.db", autocommit = True)
+            reglist = dataDB.get('reg',[])
+            listdict = {"Name":name, "Grade Level":grdlevel}
+            reglist.append(listdict)
+            dataB['reg'] = reglist
+            self.setText(f"{listdict}")
+            
+            QMessageBox.information(self, "Evaluation", "Registration Complete", QMessageBox.Ok, QMessageBox.Ok)
+
+        elif submitting == QMessageBox.No:
+            pass
+        elif submitting == QMessageBox.No and name == "" and grdlevel == "":
+            pass
+        elif submitting == QMessageBox.No and name == "" or grdlevel == "":
+            QMessageBox.warning(self, "Error","Ooops partner you have to answer all the information to be an austronaut", QMessageBox.Ok, QMessageBox.Ok)
+    
     def Window(self):
         self.setGeometry(self.x, self.y, self.width, self.height)
         self.show()
