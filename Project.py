@@ -1,10 +1,16 @@
+"""
 
+    March 2020
+    Final project in OOP
+    Programmed by: Ryan and Donald
+
+"""
 
 import sys
-from sqlitedict import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+from sqlitedict import *
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -14,19 +20,26 @@ class MainWindow(QMainWindow):
         self.y = 100
         self.width = 700
         self.height = 500
-    
-    def initUi(self):
+
         self.setWindowTitle(self.title)
 
+        def background():
+            bg = QImage("planet-space.jpg")
+            bg1 = bg.scaled(QSize(700,500))
+            palette = QPalette()
+            palette.setBrush(QPalette.Window,QBrush(bg1))
+            self.setPalette(palette)
+        background()
+
         
-        self.show()
-    
         def buttons():
             self.button = QPushButton('Continue',self)
             self.button.setStyleSheet('QPushButton { background-color: transparent }'
-                                    'QPushButton:hover { background-color: lightblue }'
+                                    'QPushButton:hover { background-color: rgb(117, 220, 255) }'
                                     'QPushButton:hover { border-style: inset }'
                                     'QPushButton:hover { color: black }'
+                                    'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                                    'QPushButton:pressed { color: black }'
                                     'QPushButton { color: white }'
                                     'QPushButton { border-style: outset }'
                                     'QPushButton { border-width: 1px }'
@@ -40,9 +53,10 @@ class MainWindow(QMainWindow):
 
             self.button1 = QPushButton('Quit',self)
             self.button1.setStyleSheet('QPushButton { background-color: transparent }'
-                                    'QPushButton:hover { background-color: lightblue }'
+                                    'QPushButton:hover { background-color: rgb(117, 220, 255) }'
                                     'QPushButton:hover { border-style: inset }'
                                     'QPushButton:hover { color: black }'
+                                    'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
                                     'QPushButton { color: white }'
                                     'QPushButton { border-style: outset }'
                                     'QPushButton { border-width: 1px }'
@@ -70,45 +84,6 @@ class MainWindow(QMainWindow):
         self.Window()
 
     @pyqtSlot()
-    def submitBox(self):
-        buttonReply = QMessageBox.question(self,"Submitting Data", "Do you want to submit the information partner ? ", 
-                                                                    QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
-        if buttonReply == QMessageBox.Yes:
-            QMessageBox.warning(self,"Evalutaion", "Registration Complete", QMessageBox.Ok,QMessageBox.Ok)
-
-        else:
-           pass
-
-    def clear(self):
-        self.textbox1.setText("")
-        self.textbox2.setText("")
-
-    def data(self):
-        name = self.textbox1.text()
-        grdlevel = self.textbox2.text()
-
-        self.submitdata(name, grdlevel)
-
-    def submitdata(self,name,grdlevel):
-        submitting = QMessageBox.question(self, "Submitting Data", "Confirm?", QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
-
-        if submitting == QMessageBox.Yes and name != "" and grdlevel != "":
-            dataB = SqliteDict("Ddb.db", autocommit = True)
-            reglist = dataDB.get('reg',[])
-            listdict = {"Name":name, "Grade Level":grdlevel}
-            reglist.append(listdict)
-            dataB['reg'] = reglist
-            print(dataB['reg'])
-            
-            QMessageBox.information(self, "Evaluation", "Registration Complete", QMessageBox.Ok, QMessageBox.Ok)
-
-        elif submitting == QMessageBox.No:
-            pass
-        elif submitting == QMessageBox.No and name == "" and grdlevel == "":
-            pass
-        elif submitting == QMessageBox.No and name == "" or grdlevel == "":
-            QMessageBox.warning(self, "Error","Ooops partner you have to answer all the information to be an austronaut", QMessageBox.Ok, QMessageBox.Ok)
-    
 
     def Cancel(self):
         Confirmation = QMessageBox.warning(self,"Warning","Quit Application?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
@@ -127,9 +102,156 @@ class MainWindow(QMainWindow):
         MainWindow.hide(self)
 
 
+class SurveyWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Educational Solar System for Kids!")
+        self.setGeometry(550,150,300,500)
+
+        def background():
+            bg = QImage("bluegreen-space.jpg")
+            bg1 = bg.scaled(QSize(700,500))
+            palette = QPalette()
+            palette.setBrush(QPalette.Window,QBrush(bg1))
+            self.setPalette(palette)
+        background()
+
+        def Label():
+            
+            self.label1 = QLabel("Welcome Space Ranger!",self)
+            self.label1.setStyleSheet('QLabel { font-family: Comic Sans MS}'
+                                'QLabel { font: bold italic 20px}'
+                                'QLabel { color: white}')
+            self.label1.move(30,10)
+            self.label1.resize(500,40)
+
+            self.label2 = QLabel("Before we proceed our escapade on\n"
+                            " the Solar System, we would like to\n"
+                            "           know more about you!\n\n"
+                            " Don't worry Space Ranger, we will\n"
+                            "    keep your information private!",self)
+            self.label2.setStyleSheet('QLabel { font-family: Comic Sans MS}'
+                                'QLabel { font-size: 15px}'
+                                'QLabel { color: white}')
+            self.label2.move(25,45)
+            self.label2.resize(300,150)
+        Label()
+
+        def Text():
+            self.text1 = QLabel("Name: ",self)
+            self.text1.move(25,210)
+            self.text1.setStyleSheet('QLabel { font-family: Comic Sans MS}'
+                                'QLabel { color: white}'
+                                'QLabel { font-size: 15px}')
+
+            self.text2 = QLabel("Age: ",self)
+            self.text2.move(25,255)
+            self.text2.setStyleSheet('QLabel { font-family: Comic Sans MS}'
+                                'QLabel { color: white}'
+                                'QLabel { font-size: 15px}')
+
+            self.text2 = QLabel("Grade Level: ",self)
+            self.text2.move(25,300)
+            self.text2.setStyleSheet('QLabel { font-family: Comic Sans MS}'
+                                'QLabel { color: white}'
+                                'QLabel { font-size: 15px}')
+
+            self.text2 = QLabel("Name of School: ",self)
+            self.text2.resize(200,20)
+            self.text2.move(25,345)
+            self.text2.setStyleSheet('QLabel { font-family: Comic Sans MS}'
+                                'QLabel { color: white}'
+                                'QLabel { font-size: 15px}')
+        Text()
+        
+        def Buttons():
+            self.b1 = QPushButton('Submit',self)
+            self.b1.move(25,400)
+            self.b1.clicked.connect(self.info)
+            self.b1.setStyleSheet('QPushButton { background-color: transparent }'
+                                    'QPushButton:hover { background-color: rgb(117, 220, 255) }'
+                                    'QPushButton:hover { border-style: inset }'
+                                    'QPushButton:hover { color: black }'
+                                    'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                                    'QPushButton { color: white }'
+                                    'QPushButton { border-style: outset }'
+                                    'QPushButton { border-width: 1px }'
+                                    'QPushButton { border-radius: 10px }'
+                                    'QPushButton { padding: 5px }'
+                                    'QPushButton { font: bold 13px }')
+
+            self.b2 = QPushButton('Clear',self)
+            self.b2.move(175,400)
+            self.b2.clicked.connect(self.clear)
+            self.b2.setStyleSheet('QPushButton { background-color: transparent }'
+                                    'QPushButton:hover { background-color: rgb(117, 220, 255) }'
+                                    'QPushButton:hover { border-style: inset }'
+                                    'QPushButton:hover { color: black }'
+                                    'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                                    'QPushButton { color: white }'
+                                    'QPushButton { border-style: outset }'
+                                    'QPushButton { border-width: 1px }'
+                                    'QPushButton { border-radius: 10px }'
+                                    'QPushButton { padding: 5px }'
+                                    'QPushButton { font: bold 13px }')
+        Buttons()
+
+        def Textbox():
+            self.textbox1 = QLineEdit(self)
+            self.textbox1.move(80,215)
+            self.textbox1.resize(200,20)
+
+            self.textbox2 = QLineEdit(self)
+            self.textbox2.move(80,260)
+            self.textbox2.resize(200,20)
+
+            self.textbox3 = QLineEdit(self)
+            self.textbox3.move(120,305)
+            self.textbox3.resize(160,20)
+
+            self.textbox4 = QLineEdit(self)
+            self.textbox4.move(145,345)
+            self.textbox4.resize(135,20)
+        Textbox()
+
+        self.show()
+            
+
+    @pyqtSlot()
+
+    def clear(self):
+        self.textbox1.setText("")
+        self.textbox2.setText("")
+        self.textbox3.setText("")
+        self.textbox4.setText("")
+
+    def info(self):
+        name = self.textbox1.text()
+        age = self.textbox2.text()
+        gradelevel = self.textbox3.text()
+        school = self.textbox4.text()
+
+        self.submit(name, age, gradelevel, school)
+
+    def submit(self, name, age, gradelevel, school):
+        submit = QMessageBox.question(self, "Submit", "Submit Data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if submit == QMessageBox.No:
+            pass
+
+        elif submit == QMessageBox.Yes and name != "" and age != "" and gradelevel != "" and school != "":
+            database = SqliteDict("users.db", autocommit=True)
+            inf = database.get('data',[])
+            temporary = {"Name: ":name, "Age: ":age, "Grade Level":gradelevel,"School: ":school}
+            inf.append(temporary)
+            database['data'] = inf
+            QMessageBox.information(self, "Submit", "Submitted Successfully!",
+                                        QMessageBox.Ok, QMessageBox.Ok)
+
+        #elif submit == QMessageBox.Yes and name == "" or age == "" or gradelevel == "" or school == "":
+            #if 
 
 
-    
+
 class Window2(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -245,10 +367,19 @@ class Window2(QMainWindow):
             Neptune()
 
             def back():
-                self.backbutton = QPushButton('',self)
-                self.backbutton.setIcon(QIcon('back-icon.ico'))
-                self.backbutton.setStyleSheet('background-color: transparent')
-                self.backbutton.setToolTip("Back")
+                self.backbutton = QPushButton('Back',self)
+                self.backbutton.setStyleSheet('QPushButton { background-color: transparent }'
+                                    'QPushButton:hover { background-color: rgb(117, 220, 255) }'
+                                    'QPushButton:hover { color: black }'
+                                    'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                                    'QPushButton:pressed { color: black }'
+                                    'QPushButton { color: white }'
+                                    'QPushButton { border-style: outset }'
+                                    'QPushButton { border-width: 1px }'
+                                    'QPushButton { border-radius: 10px }'
+                                    'QPushButton { padding: 5px }'
+                                    'QPushButton { font: bold 9px }')
+                self.backbutton.setToolTip("Go back to previous window")
                 self.backbutton.setIconSize(QSize(25,25))
                 self.backbutton.resize(50,40)
                 self.backbutton.move(5,5)
@@ -312,19 +443,25 @@ class Window2(QMainWindow):
         self.mnwndw.show()
 
 
-
-
 class WindowSun(QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle("Sun")
         self.setGeometry(350,100,700,500)
-        
-        self.backbutton = QPushButton('',self)
-        self.backbutton.setIcon(QIcon('back-icon.ico'))
-        self.backbutton.setStyleSheet('background-color: transparent')
-        self.backbutton.setToolTip("Back")
+        self.backbutton = QPushButton('Back',self)
+        self.backbutton.setStyleSheet('QPushButton { background-color: transparent }'
+                            'QPushButton:hover { background-color: rgb(117, 220, 255) }'
+                            'QPushButton:hover { color: black }'
+                            'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                            'QPushButton:pressed { color: black }'
+                            'QPushButton { color: white }'
+                            'QPushButton { border-style: outset }'
+                            'QPushButton { border-width: 1px }'
+                            'QPushButton { border-radius: 10px }'
+                            'QPushButton { padding: 5px }'
+                            'QPushButton { font: bold 9px }')
+        self.backbutton.setToolTip("Go back to previous window")  
         self.backbutton.setIconSize(QSize(25,25))
         self.backbutton.resize(50,40)
         self.backbutton.move(5,5)
@@ -354,11 +491,19 @@ class WindowMercury(QMainWindow):
 
         self.setWindowTitle("Mercury")
         self.setGeometry(350,100,700,500)
-        
-        self.backbutton = QPushButton('',self)
-        self.backbutton.setIcon(QIcon('back-icon.ico'))
-        self.backbutton.setStyleSheet('background-color: transparent')
-        self.backbutton.setToolTip("Back")
+        self.backbutton = QPushButton('Back',self)
+        self.backbutton.setStyleSheet('QPushButton { background-color: transparent }'
+                            'QPushButton:hover { background-color: rgb(117, 220, 255) }'
+                            'QPushButton:hover { color: black }'
+                            'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                            'QPushButton:pressed { color: black }'
+                            'QPushButton { color: white }'
+                            'QPushButton { border-style: outset }'
+                            'QPushButton { border-width: 1px }'
+                            'QPushButton { border-radius: 10px }'
+                            'QPushButton { padding: 5px }'
+                            'QPushButton { font: bold 9px }')
+        self.backbutton.setToolTip("Go back to previous window")
         self.backbutton.setIconSize(QSize(25,25))
         self.backbutton.resize(50,40)
         self.backbutton.move(5,5)
@@ -388,11 +533,19 @@ class WindowVenus(QMainWindow):
 
         self.setWindowTitle("Venus")
         self.setGeometry(350,100,700,500)
-        
-        self.backbutton = QPushButton('',self)
-        self.backbutton.setIcon(QIcon('back-icon.ico'))
-        self.backbutton.setStyleSheet('background-color: transparent')
-        self.backbutton.setToolTip("Back")
+        self.backbutton = QPushButton('Back',self)
+        self.backbutton.setStyleSheet('QPushButton { background-color: transparent }'
+                            'QPushButton:hover { background-color: rgb(117, 220, 255) }'
+                            'QPushButton:hover { color: black }'
+                            'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                            'QPushButton:pressed { color: black }'
+                            'QPushButton { color: white }'
+                            'QPushButton { border-style: outset }'
+                            'QPushButton { border-width: 1px }'
+                            'QPushButton { border-radius: 10px }'
+                            'QPushButton { padding: 5px }'
+                            'QPushButton { font: bold 9px }')
+        self.backbutton.setToolTip("Go back to previous window")
         self.backbutton.setIconSize(QSize(25,25))
         self.backbutton.resize(50,40)
         self.backbutton.move(5,5)
@@ -422,11 +575,19 @@ class WindowEarth(QMainWindow):
 
         self.setWindowTitle("Earth")
         self.setGeometry(350,100,700,500)
-        
-        self.backbutton = QPushButton('',self)
-        self.backbutton.setIcon(QIcon('back-icon.ico'))
-        self.backbutton.setStyleSheet('background-color: transparent')
-        self.backbutton.setToolTip("Back")
+        self.backbutton = QPushButton('Back',self)
+        self.backbutton.setStyleSheet('QPushButton { background-color: transparent }'
+                            'QPushButton:hover { background-color: rgb(117, 220, 255) }'
+                            'QPushButton:hover { color: black }'
+                            'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                            'QPushButton:pressed { color: black }'
+                            'QPushButton { color: white }'
+                            'QPushButton { border-style: outset }'
+                            'QPushButton { border-width: 1px }'
+                            'QPushButton { border-radius: 10px }'
+                            'QPushButton { padding: 5px }'
+                            'QPushButton { font: bold 9px }')
+        self.backbutton.setToolTip("Go back to previous window")
         self.backbutton.setIconSize(QSize(25,25))
         self.backbutton.resize(50,40)
         self.backbutton.move(5,5)
@@ -456,11 +617,19 @@ class WindowMars(QMainWindow):
 
         self.setWindowTitle("Mars")
         self.setGeometry(350,100,700,500)
-        
-        self.backbutton = QPushButton('',self)
-        self.backbutton.setIcon(QIcon('back-icon.ico'))
-        self.backbutton.setStyleSheet('background-color: transparent')
-        self.backbutton.setToolTip("Back")
+        self.backbutton = QPushButton('Back',self)
+        self.backbutton.setStyleSheet('QPushButton { background-color: transparent }'
+                            'QPushButton:hover { background-color: rgb(117, 220, 255) }'
+                            'QPushButton:hover { color: black }'
+                            'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                            'QPushButton:pressed { color: black }'
+                            'QPushButton { color: white }'
+                            'QPushButton { border-style: outset }'
+                            'QPushButton { border-width: 1px }'
+                            'QPushButton { border-radius: 10px }'
+                            'QPushButton { padding: 5px }'
+                            'QPushButton { font: bold 9px }')
+        self.backbutton.setToolTip("Go back to previous window")
         self.backbutton.setIconSize(QSize(25,25))
         self.backbutton.resize(50,40)
         self.backbutton.move(5,5)
@@ -490,11 +659,19 @@ class WindowJupiter(QMainWindow):
 
         self.setWindowTitle("Jupiter")
         self.setGeometry(350,100,700,500)
-        
-        self.backbutton = QPushButton('',self)
-        self.backbutton.setIcon(QIcon('back-icon.ico'))
-        self.backbutton.setStyleSheet('background-color: transparent')
-        self.backbutton.setToolTip("Back")
+        self.backbutton = QPushButton('Back',self)
+        self.backbutton.setStyleSheet('QPushButton { background-color: transparent }'
+                            'QPushButton:hover { background-color: rgb(117, 220, 255) }'
+                            'QPushButton:hover { color: black }'
+                            'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                            'QPushButton:pressed { color: black }'
+                            'QPushButton { color: white }'
+                            'QPushButton { border-style: outset }'
+                            'QPushButton { border-width: 1px }'
+                            'QPushButton { border-radius: 10px }'
+                            'QPushButton { padding: 5px }'
+                            'QPushButton { font: bold 9px }')
+        self.backbutton.setToolTip("Go back to previous window")
         self.backbutton.setIconSize(QSize(25,25))
         self.backbutton.resize(50,40)
         self.backbutton.move(5,5)
@@ -524,11 +701,19 @@ class WindowSaturn(QMainWindow):
 
         self.setWindowTitle("Saturn")
         self.setGeometry(350,100,700,500)
-        
-        self.backbutton = QPushButton('',self)
-        self.backbutton.setIcon(QIcon('back-icon.ico'))
-        self.backbutton.setStyleSheet('background-color: transparent')
-        self.backbutton.setToolTip("Back")
+        self.backbutton = QPushButton('Back',self)
+        self.backbutton.setStyleSheet('QPushButton { background-color: transparent }'
+                            'QPushButton:hover { background-color: rgb(117, 220, 255) }'
+                            'QPushButton:hover { color: black }'
+                            'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                            'QPushButton:pressed { color: black }'
+                            'QPushButton { color: white }'
+                            'QPushButton { border-style: outset }'
+                            'QPushButton { border-width: 1px }'
+                            'QPushButton { border-radius: 10px }'
+                            'QPushButton { padding: 5px }'
+                            'QPushButton { font: bold 9px }')
+        self.backbutton.setToolTip("Go back to previous window")
         self.backbutton.setIconSize(QSize(25,25))
         self.backbutton.resize(50,40)
         self.backbutton.move(5,5)
@@ -558,11 +743,19 @@ class WindowUranus(QMainWindow):
 
         self.setWindowTitle("Uranus")
         self.setGeometry(350,100,700,500)
-        
-        self.backbutton = QPushButton('',self)
-        self.backbutton.setIcon(QIcon('back-icon.ico'))
-        self.backbutton.setStyleSheet('background-color: transparent')
-        self.backbutton.setToolTip("Back")
+        self.backbutton = QPushButton('Back',self)
+        self.backbutton.setStyleSheet('QPushButton { background-color: transparent }'
+                            'QPushButton:hover { background-color: rgb(117, 220, 255) }'
+                            'QPushButton:hover { color: black }'
+                            'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                            'QPushButton:pressed { color: black }'
+                            'QPushButton { color: white }'
+                            'QPushButton { border-style: outset }'
+                            'QPushButton { border-width: 1px }'
+                            'QPushButton { border-radius: 10px }'
+                            'QPushButton { padding: 5px }'
+                            'QPushButton { font: bold 9px }')
+        self.backbutton.setToolTip("Go back to previous window")
         self.backbutton.setIconSize(QSize(25,25))
         self.backbutton.resize(50,40)
         self.backbutton.move(5,5)
@@ -592,11 +785,19 @@ class WindowNeptune(QMainWindow):
 
         self.setWindowTitle("Neptune")
         self.setGeometry(350,100,700,500)
-        
-        self.backbutton = QPushButton('',self)
-        self.backbutton.setIcon(QIcon('back-icon.ico'))
-        self.backbutton.setStyleSheet('background-color: transparent')
-        self.backbutton.setToolTip("Back")
+        self.backbutton = QPushButton('Back',self)
+        self.backbutton.setStyleSheet('QPushButton { background-color: transparent }'
+                            'QPushButton:hover { background-color: rgb(117, 220, 255) }'
+                            'QPushButton:hover { color: black }'
+                            'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                            'QPushButton:pressed { color: black }'
+                            'QPushButton { color: white }'
+                            'QPushButton { border-style: outset }'
+                            'QPushButton { border-width: 1px }'
+                            'QPushButton { border-radius: 10px }'
+                            'QPushButton { padding: 5px }'
+                            'QPushButton { font: bold 9px }')
+        self.backbutton.setToolTip("Go back to previous window")
         self.backbutton.setIconSize(QSize(25,25))
         self.backbutton.resize(50,40)
         self.backbutton.move(5,5)
@@ -621,7 +822,8 @@ class WindowNeptune(QMainWindow):
         self.wndw2.show()
 
 
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    Main = MainWindow()
-
+    Main = SurveyWindow()
+    sys.exit(app.exec_())  
