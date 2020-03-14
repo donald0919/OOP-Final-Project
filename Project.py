@@ -1,11 +1,7 @@
-"""
-    March 2020
-    Final project in OOP
-    Programmed by: Ryan and Donald
-"""
 
 
 import sys
+from sqlitedict import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -18,18 +14,13 @@ class MainWindow(QMainWindow):
         self.y = 100
         self.width = 700
         self.height = 500
-
+    
+    def initUi(self):
         self.setWindowTitle(self.title)
 
-        def background():
-            bg = QImage("planet-space.jpg")
-            bg1 = bg.scaled(QSize(700,500))
-            palette = QPalette()
-            palette.setBrush(QPalette.Window,QBrush(bg1))
-            self.setPalette(palette)
-        background()
-
         
+        self.show()
+    
         def buttons():
             self.button = QPushButton('Continue',self)
             self.button.setStyleSheet('QPushButton { background-color: transparent }'
@@ -79,6 +70,45 @@ class MainWindow(QMainWindow):
         self.Window()
 
     @pyqtSlot()
+    def submitBox(self):
+        buttonReply = QMessageBox.question(self,"Submitting Data", "Do you want to submit the information partner ? ", 
+                                                                    QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+        if buttonReply == QMessageBox.Yes:
+            QMessageBox.warning(self,"Evalutaion", "Registration Complete", QMessageBox.Ok,QMessageBox.Ok)
+
+        else:
+           pass
+
+    def clear(self):
+        self.textbox1.setText("")
+        self.textbox2.setText("")
+
+    def data(self):
+        name = self.textbox1.text()
+        grdlevel = self.textbox2.text()
+
+        self.submitdata(name, grdlevel)
+
+    def submitdata(self,name,grdlevel):
+        submitting = QMessageBox.question(self, "Submitting Data", "Confirm?", QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+
+        if submitting == QMessageBox.Yes and name != "" and grdlevel != "":
+            dataB = SqliteDict("Ddb.db", autocommit = True)
+            reglist = dataDB.get('reg',[])
+            listdict = {"Name":name, "Grade Level":grdlevel}
+            reglist.append(listdict)
+            dataB['reg'] = reglist
+            print(dataB['reg'])
+            
+            QMessageBox.information(self, "Evaluation", "Registration Complete", QMessageBox.Ok, QMessageBox.Ok)
+
+        elif submitting == QMessageBox.No:
+            pass
+        elif submitting == QMessageBox.No and name == "" and grdlevel == "":
+            pass
+        elif submitting == QMessageBox.No and name == "" or grdlevel == "":
+            QMessageBox.warning(self, "Error","Ooops partner you have to answer all the information to be an austronaut", QMessageBox.Ok, QMessageBox.Ok)
+    
 
     def Cancel(self):
         Confirmation = QMessageBox.warning(self,"Warning","Quit Application?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
@@ -594,5 +624,4 @@ class WindowNeptune(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     Main = MainWindow()
-    sys.exit(app.exec_())  
 
