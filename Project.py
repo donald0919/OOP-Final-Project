@@ -1,3 +1,10 @@
+"""
+    March 2020
+    Final project in OOP
+    Programmed by: Ryan and Donald
+"""
+
+
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -25,14 +32,32 @@ class MainWindow(QMainWindow):
         
         def buttons():
             self.button = QPushButton('Continue',self)
-            self.button.setStyleSheet("font: Bold")
+            self.button.setStyleSheet('QPushButton { background-color: transparent }'
+                                    'QPushButton:hover { background-color: lightblue }'
+                                    'QPushButton:hover { border-style: inset }'
+                                    'QPushButton:hover { color: black }'
+                                    'QPushButton { color: white }'
+                                    'QPushButton { border-style: outset }'
+                                    'QPushButton { border-width: 1px }'
+                                    'QPushButton { border-radius: 10px }'
+                                    'QPushButton { padding: 5px }'
+                                    'QPushButton { font: bold 13px }')
             self.button.setToolTip("Continue to Main Window")
             self.button.clicked.connect(self.Window_2)
             self.button.resize(100,50)
             self.button.move(200,400)
 
             self.button1 = QPushButton('Quit',self)
-            self.button1.setStyleSheet("font: Bold")
+            self.button1.setStyleSheet('QPushButton { background-color: transparent }'
+                                    'QPushButton:hover { background-color: lightblue }'
+                                    'QPushButton:hover { border-style: inset }'
+                                    'QPushButton:hover { color: black }'
+                                    'QPushButton { color: white }'
+                                    'QPushButton { border-style: outset }'
+                                    'QPushButton { border-width: 1px }'
+                                    'QPushButton { border-radius: 10px }'
+                                    'QPushButton { padding: 5px }'
+                                    'QPushButton { font: bold 13px }')
             self.button1.setToolTip("Exit Application")
             self.button1.clicked.connect(self.Cancel)
             self.button1.resize(100,50)
@@ -91,11 +116,10 @@ class Window2(QMainWindow):
         
         def buttons():
             def Sun():
-                planet = Sun
                 self.button = QPushButton('',self)
                 self.button.setIcon(QIcon('Sun.png'))
                 self.button.setToolTip("Sun")
-                self.button.setStyleSheet('background-color: transparent')
+                self.button.setStyleSheet('QPushButton { background-color: transparent }')
                 self.button.setIconSize(QSize(400, 400))
                 self.button.resize(400,400)
                 self.button.move(525,-50)
@@ -103,7 +127,6 @@ class Window2(QMainWindow):
             Sun()
 
             def Mercury():
-                planet = "Mercury"
                 self.button = QPushButton('',self)
                 self.button.setIcon(QIcon('mercury.png'))
                 self.button.setToolTip("Mercury")
@@ -115,7 +138,6 @@ class Window2(QMainWindow):
             Mercury()
 
             def Venus():
-                planet = "Venus"
                 self.button = QPushButton('',self)
                 self.button.setIcon(QIcon('venus.png'))
                 self.button.setToolTip("Venus")
@@ -127,7 +149,6 @@ class Window2(QMainWindow):
             Venus()
 
             def Earth():
-                planet = "Earth"
                 self.button = QPushButton('',self)
                 self.button.setIcon(QIcon('earth.png'))
                 self.button.setToolTip("Earth")
@@ -139,7 +160,6 @@ class Window2(QMainWindow):
             Earth()
 
             def Mars():
-                planet = "Mars"
                 self.button = QPushButton('',self)
                 self.button.setIcon(QIcon('mars.png'))
                 self.button.setToolTip("Mars")
@@ -151,7 +171,6 @@ class Window2(QMainWindow):
             Mars()
 
             def Jupiter():
-                planet = "Jupiter"
                 self.button = QPushButton('',self)
                 self.button.setIcon(QIcon('jupiter.png'))
                 self.button.setToolTip("Jupiter")
@@ -163,7 +182,6 @@ class Window2(QMainWindow):
             Jupiter()
 
             def Saturn():
-                planet = "Saturn"
                 self.button = QPushButton('',self)
                 self.button.setIcon(QIcon('saturn.png'))
                 self.button.setToolTip("Saturn")
@@ -175,7 +193,6 @@ class Window2(QMainWindow):
             Saturn()
 
             def Uranus():
-                planet = "Uranus"
                 self.button = QPushButton('',self)
                 self.button.setIcon(QIcon('uranus.png'))
                 self.button.setToolTip("Uranus")
@@ -187,7 +204,6 @@ class Window2(QMainWindow):
             Uranus()
 
             def Neptune():
-                planet = "Neptune"
                 self.button = QPushButton('',self)
                 self.button.setIcon(QIcon('neptune.png'))
                 self.button.setToolTip("Neptune")
@@ -579,3 +595,4 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     Main = MainWindow()
     sys.exit(app.exec_())  
+
