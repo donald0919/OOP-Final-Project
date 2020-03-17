@@ -20,7 +20,6 @@ class MainWindow(QMainWindow):
         self.y = 100
         self.width = 700
         self.height = 500
-
         self.setWindowTitle(self.title)
 
         def background():
@@ -40,13 +39,14 @@ class MainWindow(QMainWindow):
                                     'QPushButton:hover { color: black }'
                                     'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
                                     'QPushButton:pressed { color: black }'
+                                    'QPushButton { font-family: Comic Sans MS}'
                                     'QPushButton { color: white }'
                                     'QPushButton { border-style: outset }'
                                     'QPushButton { border-width: 1px }'
                                     'QPushButton { border-radius: 10px }'
                                     'QPushButton { padding: 5px }'
                                     'QPushButton { font: bold 13px }')
-            self.button.setToolTip("Continue to Main Window")
+            self.button.setToolTip("Continue to the Solar System")
             self.button.clicked.connect(self.Window_2)
             self.button.resize(100,50)
             self.button.move(200,400)
@@ -58,32 +58,63 @@ class MainWindow(QMainWindow):
                                     'QPushButton:hover { color: black }'
                                     'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
                                     'QPushButton { color: white }'
+                                    'QPushButton { font-family: Comic Sans MS}'
                                     'QPushButton { border-style: outset }'
                                     'QPushButton { border-width: 1px }'
                                     'QPushButton { border-radius: 10px }'
                                     'QPushButton { padding: 5px }'
                                     'QPushButton { font: bold 13px }')
-            self.button1.setToolTip("Exit Application")
+            self.button1.setToolTip("Exit")
             self.button1.clicked.connect(self.Cancel)
             self.button1.resize(100,50)
             self.button1.move(400,400)
+
+            self.button2 = QPushButton("About",self)
+            self.button2.move(600,0)
+            #self.button2.clicked.connect(self.about)
+            self.button2.setToolTip('Learn about this program')
+            self.button2.setStyleSheet('QPushButton { background-color: transparent }'
+                                    'QPushButton:hover { background-color: rgb(117, 220, 255) }'
+                                    'QPushButton:hover { border-style: inset }'
+                                    'QPushButton:hover { color: black }'
+                                    'QPushButton:pressed { background-color: rgb(82, 149, 171) }'
+                                    'QPushButton { color: white }'
+                                    'QPushButton { font-family: Comic Sans MS}'
+                                    'QPushButton { border-style: outset }'
+                                    'QPushButton { border-width: 1px }'
+                                    'QPushButton { border-radius: 10px }'
+                                    'QPushButton { padding: 5px }'
+                                    'QPushButton { font: bold 12px }')
         buttons()
 
         def labels():
             self.label = QLabel("Programmed by: Donald G. Jardiolin and John Ryan L. Montecalvo",self)
+            self.label.setStyleSheet('QLabel { font-family: Comic Sans MS}'
+                                'QLabel { color: white}'
+                                'QLabel { font-size: 12x}')
             self.label.resize(490,20)
             self.label.move(190,450)
-            self.label.setStyleSheet("color: white")
 
             self.label1 = QLabel("Technological Institute of the Philippines",self)
+            self.label1.setStyleSheet('QLabel { font-family: Comic Sans MS}'
+                                'QLabel { color: white}'
+                                'QLabel { font-size: 12px}')
             self.label1.resize(400,20)
-            self.label1.move(240,470)
-            self.label1.setStyleSheet("color: white")
+            self.label1.move(230,470)
+
+            self.label2 = QLabel("",self)
+            self.label2.setStyleSheet('QLabel { font-family: Comic Sans MS}'
+                                'QLabel { color: white}'
+                                'QLabel { font-size: 15px}')
+            self.label2.resize(700,40)
+            self.label2.move(50,40)
         labels()
 
         self.Window()
 
     @pyqtSlot()
+
+    #def about(self):
 
     def Cancel(self):
         Confirmation = QMessageBox.warning(self,"Warning","Quit Application?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
@@ -107,6 +138,7 @@ class SurveyWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Educational Solar System for Kids!")
         self.setGeometry(550,150,300,500)
+        
 
         def background():
             bg = QImage("bluegreen-space.jpg")
@@ -168,6 +200,7 @@ class SurveyWindow(QMainWindow):
             self.b1 = QPushButton('Submit',self)
             self.b1.move(25,400)
             self.b1.clicked.connect(self.info)
+            self.b1.setToolTip("Submit data")
             self.b1.setStyleSheet('QPushButton { background-color: transparent }'
                                     'QPushButton:hover { background-color: rgb(117, 220, 255) }'
                                     'QPushButton:hover { border-style: inset }'
@@ -183,6 +216,7 @@ class SurveyWindow(QMainWindow):
             self.b2 = QPushButton('Clear',self)
             self.b2.move(175,400)
             self.b2.clicked.connect(self.clear)
+            self.b2.setToolTip('Clear data')
             self.b2.setStyleSheet('QPushButton { background-color: transparent }'
                                     'QPushButton:hover { background-color: rgb(117, 220, 255) }'
                                     'QPushButton:hover { border-style: inset }'
@@ -200,24 +234,54 @@ class SurveyWindow(QMainWindow):
             self.textbox1 = QLineEdit(self)
             self.textbox1.move(80,215)
             self.textbox1.resize(200,20)
+            self.textbox1.setStyleSheet('QLineEdit { background-color: transparent}'
+                                        'QLineEdit { color: white}'
+                                        'QLineEdit { font-family: Comic Sans MS}'
+                                        'QLineEdit { font: 15px}'
+                                        'QLineEdit { border: 1px solid white}'
+                                        'QLineEdit { border-color: transparent transparent white transparent}')
 
             self.textbox2 = QLineEdit(self)
             self.textbox2.move(80,260)
             self.textbox2.resize(200,20)
+            self.textbox2.setStyleSheet('QLineEdit { background-color: transparent}'
+                                        'QLineEdit { color: white}'
+                                        'QLineEdit { font-family: Comic Sans MS}'
+                                        'QLineEdit { font: 15px}'
+                                        'QLineEdit { border: 1px solid white}'
+                                        'QLineEdit { border-color: transparent transparent white transparent}')
 
             self.textbox3 = QLineEdit(self)
             self.textbox3.move(120,305)
             self.textbox3.resize(160,20)
+            self.textbox3.setStyleSheet('QLineEdit { background-color: transparent}'
+                                        'QLineEdit { color: white}'
+                                        'QLineEdit { font-family: Comic Sans MS}'
+                                        'QLineEdit { font: 15px}'
+                                        'QLineEdit { border: 1px solid white}'
+                                        'QLineEdit { border-color: transparent transparent white transparent}')
 
             self.textbox4 = QLineEdit(self)
             self.textbox4.move(145,345)
             self.textbox4.resize(135,20)
+            self.textbox4.setStyleSheet('QLineEdit { background-color: transparent}'
+                                        'QLineEdit { color: white}'
+                                        'QLineEdit { font-family: Comic Sans MS}'
+                                        'QLineEdit { font: 15px}'
+                                        'QLineEdit { border: 1px solid white}'
+                                        'QLineEdit { border-color: transparent transparent white transparent}')
         Textbox()
 
         self.show()
-            
+         
 
     @pyqtSlot()
+
+       
+    def toMainWindow(self):
+        self.toMainWindow = MainWindow()
+        self.toMainWindow.show()
+        SurveyWindow.hide(self)
 
     def clear(self):
         self.textbox1.setText("")
@@ -232,11 +296,20 @@ class SurveyWindow(QMainWindow):
         school = self.textbox4.text()
 
         self.submit(name, age, gradelevel, school)
+    
 
     def submit(self, name, age, gradelevel, school):
         submit = QMessageBox.question(self, "Submit", "Submit Data?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if submit == QMessageBox.No:
             pass
+        
+        elif submit == QMessageBox.Yes and name == "" and age == "" and gradelevel == "" and school == "":
+            warning = QMessageBox.warning(self, "Warning", "Are you sure?\nWe want to know you more!",
+                                    QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if warning == QMessageBox.Yes:
+                self.toMainWindow()
+            else:
+                pass
 
         elif submit == QMessageBox.Yes and name != "" and age != "" and gradelevel != "" and school != "":
             database = SqliteDict("users.db", autocommit=True)
@@ -244,13 +317,12 @@ class SurveyWindow(QMainWindow):
             temporary = {"Name: ":name, "Age: ":age, "Grade Level":gradelevel,"School: ":school}
             inf.append(temporary)
             database['data'] = inf
+            for i  in range(len(database['data'])):
+                print(database['data'][i])
             QMessageBox.information(self, "Submit", "Submitted Successfully!",
                                         QMessageBox.Ok, QMessageBox.Ok)
-
-        #elif submit == QMessageBox.Yes and name == "" or age == "" or gradelevel == "" or school == "":
-            #if 
-
-
+            self.toMainWindow()
+            
 
 class Window2(QMainWindow):
     def __init__(self):
@@ -475,6 +547,16 @@ class WindowSun(QMainWindow):
             self.setPalette(palette)
         background()
 
+	
+        def image():
+            self.Image = QLabel(self)
+            self.Image.setGeometry(30,80,250,250)
+            pixmap = QPixmap('Sun.png')
+            self.Image.setPixmap(pixmap)
+            self.Image.setScaledContents(True)
+        image()
+
+
     @pyqtSlot()
 
     def back(self):
@@ -516,6 +598,15 @@ class WindowMercury(QMainWindow):
             palette.setBrush(QPalette.Window,QBrush(bg1))
             self.setPalette(palette)
         background()
+
+        def image():
+            self.Image = QLabel(self)
+            self.Image.setGeometry(30,80,250,250)
+            pixmap = QPixmap('Mercury.png')
+            self.Image.setPixmap(pixmap)
+            self.Image.setScaledContents(True)
+        image()
+
 
     @pyqtSlot()
 
@@ -559,6 +650,15 @@ class WindowVenus(QMainWindow):
             self.setPalette(palette)
         background()
 
+        def image():
+            self.Image = QLabel(self)
+            self.Image.setGeometry(30,80,250,250)
+            pixmap = QPixmap('Venus.png')
+            self.Image.setPixmap(pixmap)
+            self.Image.setScaledContents(True)
+        image()
+
+
     @pyqtSlot()
 
     def back(self):
@@ -600,6 +700,15 @@ class WindowEarth(QMainWindow):
             palette.setBrush(QPalette.Window,QBrush(bg1))
             self.setPalette(palette)
         background()
+
+        def image():
+            self.Image = QLabel(self)
+            self.Image.setGeometry(30,80,250,250)
+            pixmap = QPixmap('Earth.png')
+            self.Image.setPixmap(pixmap)
+            self.Image.setScaledContents(True)
+        image()
+
 
     @pyqtSlot()
 
@@ -643,6 +752,15 @@ class WindowMars(QMainWindow):
             self.setPalette(palette)
         background()
 
+        def image():
+            self.Image = QLabel(self)
+            self.Image.setGeometry(30,80,250,250)
+            pixmap = QPixmap('Mars.png')
+            self.Image.setPixmap(pixmap)
+            self.Image.setScaledContents(True)
+        image()
+
+
     @pyqtSlot()
 
     def back(self):
@@ -684,6 +802,15 @@ class WindowJupiter(QMainWindow):
             palette.setBrush(QPalette.Window,QBrush(bg1))
             self.setPalette(palette)
         background()
+
+        def image():
+            self.Image = QLabel(self)
+            self.Image.setGeometry(30,80,250,250)
+            pixmap = QPixmap('Jupiter.png')
+            self.Image.setPixmap(pixmap)
+            self.Image.setScaledContents(True)
+        image()
+
 
     @pyqtSlot()
 
@@ -727,6 +854,15 @@ class WindowSaturn(QMainWindow):
             self.setPalette(palette)
         background()
 
+        def image():
+            self.Image = QLabel(self)
+            self.Image.setGeometry(30,80,250,250)
+            pixmap = QPixmap('Saturn.png')
+            self.Image.setPixmap(pixmap)
+            self.Image.setScaledContents(True)
+        image()
+
+
     @pyqtSlot()
 
     def back(self):
@@ -768,6 +904,15 @@ class WindowUranus(QMainWindow):
             palette.setBrush(QPalette.Window,QBrush(bg1))
             self.setPalette(palette)
         background()
+
+        def image():
+            self.Image = QLabel(self)
+            self.Image.setGeometry(30,80,250,250)
+            pixmap = QPixmap('Uranus.png')
+            self.Image.setPixmap(pixmap)
+            self.Image.setScaledContents(True)
+        image()
+
 
     @pyqtSlot()
 
@@ -811,6 +956,15 @@ class WindowNeptune(QMainWindow):
             self.setPalette(palette)
         background()
 
+        def image():
+            self.Image = QLabel(self)
+            self.Image.setGeometry(30,80,250,250)
+            pixmap = QPixmap('Neptune.png')
+            self.Image.setPixmap(pixmap)
+            self.Image.setScaledContents(True)
+        image()
+
+
     @pyqtSlot()
 
     def back(self):
@@ -825,5 +979,5 @@ class WindowNeptune(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    Main = SurveyWindow()
-    sys.exit(app.exec_())  
+    Main = MainWindow()
+    sys.exit(app.exec_())
